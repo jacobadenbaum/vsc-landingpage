@@ -86,6 +86,10 @@
         <div class="dragup"></div>
         <div class="dragdown"></div>
         <div class="titlebar" onmousedown="startdrag(event)">
+          <button class="collapse-toggle" title="Collapse/expand group" onclick="toggleCollapse(event)">
+            <span class="chevron-down">${chevronDown}</span>
+            <span class="chevron-right">${chevronRight}</span>
+          </button>
           <h1 class="group-label interactable" data-field="group.label" onclick="clickGroup(event)">(Group label)</h1>
           <div class="tools hover-only">
             <button class="ifn-sealed" title="Add bookmark to file or workspace" onclick="createBookmark(event,false)">${plus} </button>
@@ -104,6 +108,7 @@
               <div data-field="project.label">
                 Project Label with a lot of text to test overflow and ellipsis.
               </div>
+              <div data-field="project.location" class="location"></div>
             </div>
           </div>
         </div>

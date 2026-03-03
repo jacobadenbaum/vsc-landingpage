@@ -32,5 +32,7 @@ export const icons=
   squareMousePointer : require('lucide-static/icons/square-mouse-pointer.svg'),
   move : require('lucide-static/icons/move.svg'),
   settings : require('lucide-static/icons/settings.svg'),
-  
-}; 
+
+  chevronDown : require('lucide-static/icons/chevron-down.svg'),
+  chevronRight : require('lucide-static/icons/chevron-right.svg'),
+};

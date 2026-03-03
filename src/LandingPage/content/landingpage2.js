@@ -249,6 +249,35 @@ function toggleLayout(event)
   else {setLayout(event,'grid');}
 }
 
+function toggleCollapse(event)
+{
+  let elGroup = event.target.closest('.group[data-guid]');
+  if (!elGroup) { return; }
+  let isCollapsed = elGroup.classList.toggle('collapsed');
+  vscode.postMessage({command:'patch', guid:elGroup.dataset['guid'], field:'collapsed', value:isCollapsed});
+}
+
+function parseLocation(path)
+{
+  if (!path) { return ''; }
+  try
+  {
+    let decoded = decodeURIComponent(path);
+    // Remote SSH URI: vscode-remote://ssh-remote+HOST/path
+    let remoteMatch = decoded.match(/^vscode-remote:\/\/ssh-remote\+([^/]+)(.*)$/);
+    if (remoteMatch)
+    {
+      return remoteMatch[1] + ':' + remoteMatch[2];
+    }
+    // File URI: file:///path or just /path
+    let filePath = decoded.replace(/^file:\/\//, '');
+    let segments = filePath.split('/').filter(s => s.length > 0);
+    if (segments.length <= 3) { return '/' + segments.join('/'); }
+    return '.../' + segments.slice(-3).join('/');
+  }
+  catch(e) { return ''; }
+}
+
 
 function clickGroup(event)
 {
@@ -342,6 +371,9 @@ window.addEventListener('message', event =>
             elGroup.classList.add('sealed');
           }
 
+          if (landingPageGroup.collapsed) { elGroup.classList.add('collapsed'); }
+          else { elGroup.classList.remove('collapsed'); }
+
           setLayout(undefined,landingPageGroup.layout||'grid',elGroup);
 
           //--
@@ -375,6 +407,11 @@ window.addEventListener('message', event =>
 
             elProject.dataset['shade']=landingPageProject.shade;
             elProject.setAttribute('title',unescape(landingPageProject.path));
+
+            for(const labeled of elProject.querySelectorAll('[data-field="project.location"]'))
+            {
+              labeled.textContent = parseLocation(landingPageProject.path);
+            }
 
           }   
         }catch(error) {console.error(error);}              

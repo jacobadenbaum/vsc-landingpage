@@ -28,12 +28,15 @@ export interface LandingPageGroup extends LandingPageItem
   /** Collection of bookmarks in this group. */
   projects:LandingPageProject[];
 
-  /** 
+  /**
    * How the group is layouted graphically.
    * Default is grid (card tiles).
    * List uses less space and is similar to filesystem list.
    */
   layout?:'grid'|'list';
+
+  /** Whether the group is collapsed (projects hidden). */
+  collapsed?:boolean;
 }
 
 /**

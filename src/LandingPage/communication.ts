@@ -26,7 +26,7 @@ interface MessageFromWebview
   pos?:'before'|'after';
 
   /** For command 'patch' the name of the field to update. */
-  field?:'shade'|'layout';
+  field?:'shade'|'layout'|'collapsed';
   /** For command 'patch' the new value to assign to the field. */
   value?:any;
 }
@@ -302,6 +302,11 @@ export async function handleMessageFromWebview(message:MessageFromWebview,webvie
       else if (message.field==='layout')
       {
         (found.target as LandingPageGroup).layout=message.value;
+        saveModel(sharedModel);
+      }
+      else if (message.field==='collapsed')
+      {
+        (found.target as LandingPageGroup).collapsed=message.value;
         saveModel(sharedModel);
       }
       else

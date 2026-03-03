@@ -302,18 +302,34 @@
       margin-bottom:var(--gapspace);
       position: relative; //required for dropzones
 
+      &.collapsed .projects { display: none; }
+      &.collapsed .collapse-toggle
+      {
+        .chevron-down { display: none; }
+        .chevron-right { display: inline; }
+      }
+
       .titlebar
       {
         margin-bottom:var(--gapspace);
         display: flex;
-        gap:var(--gapspace);
+        gap:var(--gapspace-s);
+        align-items: center;
+
+        .collapse-toggle
+        {
+          padding: 0;
+          width: var(--buttonsize);
+          height: var(--buttonsize);
+          flex-shrink: 0;
+          .chevron-right { display: none; }
+        }
 
         .group-label //h1
         {
           // color:cornflowerblue;
           font-weight: 400;
           margin:0;
-          margin-top: -4px; //temporary Bugfix as text is not in line with tools
           padding:0; //var(--gapspace-s);
           border-radius: var(--corner);
         }
@@ -422,12 +438,13 @@
 
             flex-grow: 1;
             display: flex;
-            align-items: flex-end;                    
-  
+            flex-direction: column;
+            justify-content: flex-end;
+
             [data-field="project.label"]
             {
               // max-height: 50%;
-  
+
               display: -webkit-box;
               -webkit-line-clamp: 6;
               -webkit-box-orient: vertical;
@@ -472,9 +489,11 @@
           {
             flex-grow: 1;
             display: flex;
-            align-items: baseline;
+            flex-direction: column;
+            justify-content: center;
             padding-top: 1px; //visual fix, ... idk
-  
+            overflow: hidden;
+
             [data-field="project.label"]
             {
               display: -webkit-box;
@@ -506,6 +525,15 @@
         .textblock
         {
           overflow:hidden;
+
+          .location
+          {
+            font-size: 0.8em;
+            opacity: 0.6;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
         }
 
         &.dragged-item //for the dragged item itself, indicate visually, hide the hotspots/lock mouse interaction
