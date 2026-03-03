@@ -303,7 +303,7 @@
       position: relative; //required for dropzones
 
       &.collapsed .projects { display: none; }
-      &.collapsed .collapse-toggle
+      &.collapsed .titlebar .collapse-toggle
       {
         .chevron-down { display: none; }
         .chevron-right { display: inline; }
@@ -405,6 +405,8 @@
         align-content: flex-start;
         gap: var(--gapspace);
 
+        .project .location { display: none; }
+
         .project //card
         {        
           width: 150px;
@@ -458,24 +460,31 @@
       &.list
       {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-        gap:var(--gapspace-s);
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 0;
 
         .project
         {
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
-          max-width: 200px;
-          width: 300px;
-          // height:var(--gapspace);
-          padding:var(--ctrlspace);
+          width: 100%;
+          padding: var(--gapspace-s) var(--ctrlspace);
           gap: var(--ctrlspace);
           //overflow: hidden; // no! this would hide the drag-drop indicator for move-mode!
           position: relative;
+
+          // Override card chrome for flat list appearance
+          outline: none;
+          box-shadow: none;
+          background: transparent;
+          border-radius: 0;
+
+          &:hover
+          {
+            background-color: var(--vscode-list-hoverBackground);
+          }
 
           .pictoral
           {
